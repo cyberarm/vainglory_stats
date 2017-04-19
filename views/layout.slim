@@ -1,0 +1,21 @@
+html
+  head
+    title VainGlory API -- Ruby Edition, or something like that :D
+    link href="/reserved/application.css" type="text/css" rel="stylesheet"
+  body
+    #container
+      #header
+        h1 VainGlory API
+        nav
+          p
+            a.nav href="/" Home
+            a.nav href="/matches" Matches
+            a.nav href="/players" Players
+            a.nav href="/about" About
+      #content
+        == yield
+        br
+        br
+      #footer
+      p Times are converted to #{Time.now.strftime('%Z')}
+      p Disclaimer: This site is not supported nor endorsed by VainGlory

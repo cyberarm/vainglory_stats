@@ -1,0 +1,8 @@
+source "https://rubygems.org"
+gem "sinatra"
+gem "sinatra-reloader"
+gem "sinatra-contrib"
+gem "puma"
+gem "slim"
+gem "sass"
+gem "gamelocker_api", path: "../gamelocker_api"

@@ -1,0 +1,96 @@
+html, body
+  color: white
+  background: #222
+  text-shadow: 0 0 1px #777
+  font-family: sans-serif
+
+h1, h2, h3, h4, h5, h6
+  margin: 0.5em
+p, code, pre, label
+  margin: 1px
+  font-size: 1.3em
+a
+  color: orange
+  text-decoration: none
+  &:hover
+    color: darken(orange, 20%)
+
+input[type=text], input[type=password], input[type=email], select
+  width: 256px
+  padding: 12px 20px
+  margin: 8px 0
+  display: inline-block
+  border: 1px solid #ccc
+  border-radius: 4px
+  box-sizing: border-box
+  font-family: sans-serif
+  font-size: 1em
+
+input[type=button], input[type=submit], input[type=reset], .nav
+  width: 265px
+  padding: 12px 20px
+  margin: 8px 0
+  display: inline-block
+  border: 1px solid #ccc
+  border-radius: 4px
+  box-sizing: border-box
+  background: #333
+  color: white
+  font-size: 1em
+  font-family: sans-serif
+  text-shadow: 0 0 1px #111
+  font-weight: bold
+  &:hover
+    color: white
+    background: #555
+    box-shadow: inset 0 0 3px black
+  &:active
+    color: #bfbfbf
+    box-shadow: inset 0 0 3px white
+    background: #111
+
+.nav
+  color: white
+  padding: 1em
+
+#header
+  text-align: center
+  background: #555
+  overflow: hidden
+  border-top-left-radius: 1em
+  border-top-right-radius: 1em
+
+#content
+  background: #111
+  padding: 1em
+  border-bottom-left-radius: 1em
+  border-bottom-right-radius: 1em
+.center
+  display: table
+  margin: 0 auto
+.container
+  overflow: auto
+  background: #212
+  border-radius: 1em
+  padding: 1em
+  box-shadow: 0 0 5px black
+.match
+  padding: 1em
+  border-radius: 1em
+  background: #222
+  overflow: auto
+  box-shadow: 0 0 5px black
+.roster
+  display: table
+  margin: 0 auto
+.left_side
+  float: left
+  margin-right: 1em
+.right_side
+  margin-left: 1em
+  float: left
+
+.blue
+  color: lighten(blue, 20%)
+.red
+  color: lighten(red, 20%)

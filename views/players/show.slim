@@ -1,0 +1,86 @@
+p=$api_interface.headers
+- if @player_data
+  .container
+    .center
+      center
+        h1 #{params[:playername]}
+        sup #{@player_data.uuid}
+      br
+      center
+        p Level
+        h1 #{@player_data.level}
+      p Experience: #{@player_data.xp}
+      p Lifetime Gold Collected: #{@player_data.lifetime_gold.round}
+      p Loss Streak: #{@player_data.loss_streak} | #{@player_data.win_streak} Win Streak
+      p Wins: #{@player_data.wins} | #{(@player_data.played.to_f/@player_data.wins.to_f).round(2)} Win Ratio
+      p All Games Played #{@player_data.played} | #{@player_data.played_ranked} Competitive Games Played
+      center
+        p Wins
+        h1 #{((@player_data.played.to_f/@player_data.wins.to_f)*100).round(2)}%
+
+  center
+    h2 Recent Matches (Last 12 hours)
+  - if @match_data
+    - @match_data.each do |match|
+      .match
+        center
+          h2
+            <a href="/matches/#{match.uuid}">#{match.gamemode.split("_").first.capitalize}</a>
+          p Match Started: #{Time.parse(match.created_at).localtime.strftime("%c")}
+          p Match Duration: #{Time.at(match.duration).utc.strftime("%-H hours %-M minutes %-S seconds")}
+        .roster
+          center
+            h2 Roster
+          - match.rosters.each_with_index do |roster, index|
+            - color = roster.side.split("/").last
+            - if index.even?
+              .left_side
+                center
+                  - if roster.participants.last.winner
+                    h3 class="#{color}" Winner
+                  - else
+                    h3 class="#{color}" Loser
+                - roster.participants.each do |participant|
+                  p
+                    b <a href="/players/#{participant.player.name}">#{participant.player.name}</a> as #{participant.actor.gsub("*", "")}
+                  table
+                    tr
+                      th Kills
+                      th Deaths
+                      th Assists
+                      th K/D Ratio
+                    tr
+                      td #{participant.kills}
+                      td #{participant.deaths}
+                      td #{participant.assists}
+                      td #{(participant.kills.to_f/participant.deaths.to_f).round(2)}
+                  br
+            - elsif index.odd?
+              .right_side
+                  center
+                    - if roster.participants.last.winner
+                      h3 class="#{color}" Winner
+                    - else
+                      h3 class="#{color}" Loser
+                  - roster.participants.each do |participant|
+                    p
+                      b <a href="/players/#{participant.player.name}">#{participant.player.name}</a> as #{participant.actor.gsub("*", "")}
+                    table
+                      tr
+                        th Kills
+                        th Deaths
+                        th Assists
+                        th K/D Ratio
+                      tr
+                        td #{participant.kills}
+                        td #{participant.deaths}
+                        td #{participant.assists}
+                        td #{(participant.kills.to_f/participant.deaths.to_f).round(2)}
+                    br
+
+      br
+  - else
+    h3 No recent matches.
+
+- else
+  h2 Player Not Found or Request Not Completed
