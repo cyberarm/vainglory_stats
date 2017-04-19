@@ -22,6 +22,16 @@ namespace "/reserved" do
   end
 end
 
+namespace "/telemetry" do
+  get do
+    if params[:telemetry_url]
+      telemetry = GameLockerAPI::Telemetry.new(params[:telemetry_url])
+      @telemetry_data = telemetry
+    end
+    slim :"matches/telemetry"
+  end
+end
+
 namespace "/matches" do
   get do
     match = $api_interface.match

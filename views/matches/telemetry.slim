@@ -1,0 +1,20 @@
+center
+  h1 Telemetry
+  - if @telemetry_data
+    - @telemetry_data.events.each do |event|
+      .match
+        .roster
+          .left_side
+            p=Time.parse(event.time).strftime("%-H:%M:%S %B %-d %Y %Z")
+          .right_side style="text-align: left;"
+            p
+              b=event.type
+            - event.payload.each do |key, value|
+              p #{key}: #{value}
+      br
+.center
+  - unless @telemetry_data
+    form action="/telemetry" method="GET"
+      label for="telemetry_url" Telemetry URL
+      input type="text" placeholder="Telemetry URL" autofocus="true" id="telemetry_url" name="telemetry_url"
+      input type="submit" value="Fetch"
