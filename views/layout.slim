@@ -14,7 +14,9 @@ html
             a.nav href="/telemetry" Telemetry
             a.nav href="/about" About
       #content
-        p=$api_interface.headers
+        - if $api_interface.headers.size > 0 && Integer($api_interface.headers[:x_ratelimit_remaining]) <= 1
+          center
+            p Ratelimited.
         == yield
         br
         br
