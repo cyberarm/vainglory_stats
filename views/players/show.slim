@@ -1,4 +1,3 @@
-p=$api_interface.headers
 - if @player_data
   .container
     .center
@@ -77,6 +76,10 @@ p=$api_interface.headers
                         td #{participant.assists}
                         td #{(participant.kills.to_f/participant.deaths.to_f).round(2)}
                     br
+          br
+          center
+            p See <a href="/telemetry?telemetry_url=#{match.telemetry_url}">Telemetry</a>
+
 
       br
   - else

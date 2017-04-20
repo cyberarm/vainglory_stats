@@ -1,18 +1,20 @@
 html
   head
-    title VainGlory API -- Ruby Edition, or something like that :D
+    title VainGlory Stats
     link href="/reserved/application.css" type="text/css" rel="stylesheet"
   body
     #container
       #header
-        h1 VainGlory API
+        h1 VainGlory Stats
         nav
           p
             a.nav href="/" Home
             a.nav href="/matches" Matches
             a.nav href="/players" Players
+            a.nav href="/telemetry" Telemetry
             a.nav href="/about" About
       #content
+        p=$api_interface.headers
         == yield
         br
         br

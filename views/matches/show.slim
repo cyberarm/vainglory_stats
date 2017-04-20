@@ -58,7 +58,7 @@ center
                     td #{(participant.kills.to_f/participant.deaths.to_f).round(2)}
                 br
     center
-      p See <a href="#{match.telemetry_url}">Telemetry</a>
+      p See <a href="/telemetry?telemetry_url=#{match.telemetry_url}">Telemetry</a>
 
     br
 - else
