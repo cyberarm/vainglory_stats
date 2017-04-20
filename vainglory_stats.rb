@@ -2,7 +2,13 @@ require "pp"
 require "bundler"
 Bundler.require
 
-API_KEY = open("#{Dir.pwd}/apikey").read.strip
+if File.exists?("#{Dir.pwd}/apikey")
+  API_KEY = open("#{Dir.pwd}/apikey").read.strip
+elsif ENV["VAINGLORY_API_KEY"]
+  API_KEY = ENV["VAINGLORY_API_KEY"]
+else
+  raise "No Api Key Given!"
+end
 $api_interface = GameLockerAPI.new(API_KEY)
 
 get "/" do

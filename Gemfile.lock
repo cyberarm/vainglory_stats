@@ -1,16 +1,13 @@
-PATH
-  remote: ../gamelocker_api
-  specs:
-    gamelocker_api (0.1.1)
-      oj (~> 2.18.5)
-      rest-client (~> 2.0.1)
-
 GEM
   remote: https://rubygems.org/
   specs:
     backports (3.7.0)
     domain_name (0.5.20170404)
       unf (>= 0.0.5, < 1.0.0)
+    ffi (1.9.18-x86-mingw32)
+    gamelocker_api (0.1.2)
+      oj (~> 2.18.5)
+      rest-client (~> 2.0.1)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
     mime-types (3.1)
@@ -26,6 +23,11 @@ GEM
     rack-test (0.6.3)
       rack (>= 1.0)
     rest-client (2.0.1)
+      http-cookie (>= 1.0.2, < 2.0)
+      mime-types (>= 1.16, < 4.0)
+      netrc (~> 0.8)
+    rest-client (2.0.1-x86-mingw32)
+      ffi (~> 1.9)
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
@@ -50,14 +52,15 @@ GEM
     tilt (2.0.7)
     unf (0.1.4)
       unf_ext
-    unf_ext (0.0.7.3)
+    unf_ext (0.0.7.4)
+    unf_ext (0.0.7.4-x86-mingw32)
 
 PLATFORMS
   ruby
   x86-mingw32
 
 DEPENDENCIES
-  gamelocker_api!
+  gamelocker_api
   puma
   sass
   sinatra
