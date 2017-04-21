@@ -5,7 +5,7 @@ GEM
     domain_name (0.5.20170404)
       unf (>= 0.0.5, < 1.0.0)
     ffi (1.9.18-x86-mingw32)
-    gamelocker_api (0.1.2)
+    gamelocker_api (0.1.3)
       oj (~> 2.18.5)
       rest-client (~> 2.0.1)
     http-cookie (1.0.3)

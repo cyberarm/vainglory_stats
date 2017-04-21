@@ -5,7 +5,7 @@ center
       .match
         .roster
           .left_side
-            p=Time.parse(event.time).strftime("%-H:%M:%S %B %-d %Y %Z")
+            p=event.time.strftime("%-H:%M:%S %B %-d %Y %Z")
           .right_side style="text-align: left;"
             p
               b=event.type

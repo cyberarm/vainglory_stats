@@ -31,7 +31,7 @@ end
 namespace "/telemetry" do
   get do
     if params[:telemetry_url]
-      telemetry = GameLockerAPI::Telemetry.new(params[:telemetry_url])
+      telemetry = $api_interface.telemetry(params[:telemetry_url])
       @telemetry_data = telemetry
     end
     slim :"matches/telemetry"
