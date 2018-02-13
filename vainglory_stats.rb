@@ -11,6 +11,25 @@ else
 end
 $api_interface = GameLockerAPI.new(API_KEY)
 
+PLAYERS = {}
+MATCHES = {}
+TIME_TO_LIVE = 320 # seconds
+
+def clean_caches
+  PLAYERS.each do |key, value|
+    if Time.now-value[:time] >= TIME_TO_LIVE
+      puts "Player #{key} expired. Was #{Time.now-value[:time]} seconds old."
+      PLAYERS.delete(key)
+    end
+  end
+  MATCHES.each do |key, value|
+    if Time.now-value[:time] >= TIME_TO_LIVE
+      puts "Match #{key} expired. Was #{Time.now-value[:time]} seconds old."
+      MATCHES.delete(key)
+    end
+  end
+end
+
 get "/" do
   slim :"home/index"
 end
@@ -46,7 +65,7 @@ namespace "/matches" do
     elsif match[:response].code != 200
       @match_data = nil
     else
-      @match_data = match[:data]
+      @match_data = match[:data].reverse
     end
 
     slim :"matches/index"
@@ -56,7 +75,15 @@ namespace "/matches" do
   end
 
   get "/:match_uuid" do
-    match = $api_interface.match(params[:match_uuid])
+    match = nil
+    clean_caches
+    if MATCHES[params[:match_uuid]]
+      match = MATCHES[params[:match_uuid]][:data]
+    else
+      _match = $api_interface.match(params[:match_uuid])
+      MATCHES[params[:match_uuid]] = {data: _match, time: Time.now}
+      match = _match
+    end
     if match[:response].code == 429
       @match_data = nil
     elsif match[:response].code != 200
@@ -78,13 +105,21 @@ namespace "/players" do
   end
 
   get "/:playername" do
-    list  = $api_interface.players([params[:playername]])
-    if list[:response].code == 429
-      @player_data = nil
-    elsif list[:response].code != 200
-      @player_data = nil
+    clean_caches
+    list = nil
+    if PLAYERS[params[:playername]]
+      list = PLAYERS[params[:playername]][:data]
     else
-      @player_data = list[:data].first
+      _list  = $api_interface.players([params[:playername]])
+      PLAYERS[params[:playername]] = {data: _list, time: Time.now}
+      list = _list
+    end
+    if list[:response].code == 429
+      @player = nil
+    elsif list[:response].code != 200
+      @player = nil
+    else
+      @player = list[:data].first
     end
 
     match_list  = $api_interface.matches({"filter[playerNames]" => params[:playername], "filter[createdAt-start]" => Time.parse((Time.now-12*(60*60)).to_s).utc.iso8601})
@@ -93,7 +128,7 @@ namespace "/players" do
     elsif match_list[:response].code != 200
       @match_data = nil
     else
-      @match_data = match_list[:data]
+      @match_data = match_list[:data].reverse
     end
     slim :"players/show"
   end

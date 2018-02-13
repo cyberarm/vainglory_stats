@@ -1,21 +1,30 @@
-- if @player_data
+- if @player
   .container
     .center
       center
-        h1 #{params[:playername]}
-        sup #{@player_data.uuid}
+        <h1>[#{@player.guild_tag}] #{@player.name}</h1>
+        sup #{@player.uuid}
       br
+      .roster
+        .left_side
+          p Skill Tier
+          h1 #{@player.skill_tier}
+        .right_side
+          p Level
+          h1 #{@player.level}
       center
-        p Level
-        h1 #{@player_data.level}
-      p Experience: #{@player_data.xp}
-      p Lifetime Gold Collected: #{@player_data.lifetime_gold.round}
-      p Loss Streak: #{@player_data.loss_streak} | #{@player_data.win_streak} Win Streak
-      p Wins: #{@player_data.wins} | #{(@player_data.played.to_f/@player_data.wins.to_f).round(2)} Win Ratio
-      p All Games Played #{@player_data.played} | #{@player_data.played_ranked} Competitive Games Played
-      center
-        p Wins
-        h1 #{((@player_data.played.to_f/@player_data.wins.to_f)*100).round(2)}%
+        p #{@player.xp} XP
+        p #{@player.karma_level} Karma Level
+        p #{@player.rank_points ? @player.rank_points : 'No'} Rank Points
+        br
+        p Games Played
+        h1 #{@player.total_games_played}
+        .roster
+          .left_side
+            p Wins: #{@player.wins}
+          .right_side
+            p Loses: #{@player.loses}
+        p #{(@player.wins.to_f/@player.loses.to_f).round(2)} Win Ratio
 
   center
     h2 Recent Matches (Last 12 hours)
